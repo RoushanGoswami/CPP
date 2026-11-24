@@ -1,66 +1,44 @@
-
 #include <iostream>
 using namespace std;
 
-class TimeConverter
-{
+class Timer {
+    // declare variables
+    int userInput;
+    int seconds, minutes, hours;
+
 public:
-    int hours, minutes, seconds;
-
-    void secondsToTime(int s)
-    {
-        hours = s / 3600;
-        minutes = (s % 3600) / 60;
-        seconds = s % 60;
-
-        cout << "HH:MM:SS => ";
-        cout << hours << ":" << minutes << ":" << seconds << endl;
+    // use the constructor
+    Timer(int seconds) {
+        this->userInput = seconds;
     }
 
-    void timeToSeconds(int h, int m, int s)
-    {
-        seconds = (h * 3600) + (m * 60) + s;
+    // main logic
+    void convertTime() {
+        this->minutes = this->userInput / 60;
+        this->seconds = this->userInput % 60;
+        this->hours = this->minutes / 60;
+        this->minutes = this->minutes % 60;
+    }
 
-        cout << "Total seconds: " << seconds << endl;
+    // print result
+    void printTime() {
+        cout << "HH:MM:SS : "
+             << this->hours << " : "
+             << this->minutes << " : "
+             << this->seconds << endl;
     }
 };
 
-int main()
-{
-    TimeConverter t;
-    int choice, totalSeconds;
+int main() {
+    int seconds;
 
-    cout << "1. Seconds to HH:MM:SS" << endl;
-    cout << "2. HH:MM:SS to Seconds" << endl;
-    cout << "Enter your choice: ";
-    cin >> choice;
+    cout << "Enter total seconds: ";
+    cin >> seconds;
 
-    if (choice == 1)
-    {
-        cout << "Enter total seconds: ";
-        cin >> totalSeconds;
+    Timer t1(seconds);
 
-        t.secondsToTime(totalSeconds);
-    }
-    else if (choice == 2)
-    {
-        int h, m, s;
-
-        cout << "Enter hours: ";
-        cin >> h;
-
-        cout << "Enter minutes: ";
-        cin >> m;
-
-        cout << "Enter seconds: ";
-        cin >> s;
-
-        t.timeToSeconds(h, m, s);
-    }
-    else
-    {
-        cout << "Invalid choice!" << endl;
-    }
+    t1.convertTime();
+    t1.printTime();
 
     return 0;
-}
+};
